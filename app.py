@@ -35,22 +35,26 @@ def home():
 
 @app.route('/order', methods=['GET', 'POST'])
 def order():
-    if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        chocolate = request.form['chocolate']
+    name = request.form['name']          # ✅ ADD THIS
+    email = request.form['email']
+    chocolate = request.form['chocolate']
 
-        conn = sqlite3.connect('chocolates.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO orders (name,email,chocolate) VALUES (?,?,?)",
-                  (name, email, chocolate))
-        conn.commit()
-        conn.close()
+    conn = sqlite3.connect('chocolates.db')
+    c = conn.cursor()
+
+    c.execute(
+        "INSERT INTO orders (name,email,chocolate) VALUES (?,?,?)",
+        (name, email, chocolate)
+    )
+
+    conn.commit()
+    conn.close()
+
+    try:
         send_email(email, chocolate)
+    except:
+        print("Email not sent (server restriction)")
 
-        return "Order placed successfully!"
-
-    return render_template('order.html')
-
+    return "Order placed successfully!"
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000, debug=True)
