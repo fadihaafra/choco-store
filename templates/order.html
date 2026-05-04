@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html>
-<body>
-    <h2>Order Form</h2>
+<form action="/order" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required><br><br>
 
-    <form method="POST">
-        Name: <input type="text" name="name"><br><br>
-        Email: <input type="email" name="email"><br><br>
+    <input type="email" name="email" placeholder="Your Email" required><br><br>
 
-        <select name="chocolate">
-            <option>Dairy Milk</option>
-            <option>KitKat</option>
-            <option>Snickers</option>
-        </select><br><br>
+    <select name="chocolate">
+        <option value="Dairy Milk">Dairy Milk</option>
+        <option value="KitKat">KitKat</option>
+        <option value="Ferrero Rocher">Ferrero Rocher</option>
+    </select><br><br>
 
-        <button type="submit">Order</button>
-    </form>
-</body>
-</html>
+    <button type="submit">Place Order</button>
+</form>
